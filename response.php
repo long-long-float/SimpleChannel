@@ -13,8 +13,7 @@ $db = new DatabaseWrapper();
 $method = $_SERVER["REQUEST_METHOD"];
 if($method === "POST") {
   #CSRF
-  $pattern = preg_replace("/\//", "\\\/", $_SERVER['HTTP_ORIGIN']);
-  if(!preg_match("/^$pattern/", $_SERVER["HTTP_REFERER"])) {
+  if($_POST["nonce"] !== md5($_SESSION["nonce"])) {
     set_error("許可されていない操作です");
     redirect_to("/index.php");
     return;

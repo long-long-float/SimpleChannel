@@ -27,6 +27,10 @@ if($thread === NULL) {
 }
 $responses = $db->find_by("thread_id", $id, "responses", array("id", "content"));
 
+# for CSRF
+$nonce = session_id();
+$_SESSION["nonce"] = $nonce;
+
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +46,7 @@ $responses = $db->find_by("thread_id", $id, "responses", array("id", "content"))
   <?php html($response["content"]); ?><hr>
 <?php } ?>
 <form action="/response.php" method="POST">
+  <input type="hidden" name="nonce" value="<?php echo md5($nonce); ?>">
   <input type="hidden" name="thread_id" value="<?php html($thread["id"]); ?>">
   <textarea name="content"></textarea>
   <input type="submit" value="投稿">
