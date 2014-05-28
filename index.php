@@ -12,6 +12,9 @@ if(is_loggedin()) {
 
 $threads = $db->execute_sql("select id, name from threads");
 
+$nonce = session_id();
+$_SESSION["nonce"] = $nonce;
+
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +42,7 @@ $threads = $db->execute_sql("select id, name from threads");
   </ul>
   <h4>スレをたてる</h4>
   <form action="/thread.php" method="POST">
+    <input type="hidden" name="nonce" value="<?php echo md5($nonce); ?>">
     <input type="text" name="name">
     <input type="submit" value="つくる">
   </form>

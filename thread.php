@@ -12,9 +12,12 @@ $db = new DatabaseWrapper();
 
 $method = $_SERVER["REQUEST_METHOD"];
 if($method === "POST") {
+  if(check_for_csrf()) return;
+
   $db->execute_sql("insert into threads (name) values (?)", array($_POST["name"]));
-  redirect_to("/index.php");
-  return;
+  
+  return redirect_to("/index.php");
+  
 } elseif ($method === "GET") {
   $id = $_GET["id"];
 }

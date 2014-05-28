@@ -12,12 +12,7 @@ $db = new DatabaseWrapper();
 
 $method = $_SERVER["REQUEST_METHOD"];
 if($method === "POST") {
-  #CSRF
-  if($_POST["nonce"] !== md5($_SESSION["nonce"])) {
-    set_error("許可されていない操作です");
-    redirect_to("/index.php");
-    return;
-  }
+  if(check_for_csrf()) return;
 
   $tid = $_POST["thread_id"];
   $db->execute_sql("insert into responses (thread_id, content) values (?, ?)", array($tid, $_POST["content"]));

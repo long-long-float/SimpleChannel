@@ -32,6 +32,16 @@ function html($str) {
   #echo htmlspecialchars($str);
 }
 
+function check_for_csrf() {
+  #CSRF
+  if($_POST["nonce"] !== md5($_SESSION["nonce"])) {
+    set_error("許可されていない操作です");
+    redirect_to("/index.php");
+    return true;
+  }
+  return false;
+}
+
 function set_error($err) {
   $_SESSION["error"] = $err;
 }
