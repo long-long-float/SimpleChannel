@@ -32,6 +32,19 @@ function html($str) {
   #echo htmlspecialchars($str);
 }
 
+function create_nonce() {
+
+$nonce = session_id();
+$_SESSION["nonce"] = $nonce;
+
+?>
+
+<input type="hidden" name="nonce" value="<?php echo md5($nonce); ?>">
+
+<?php
+
+}
+
 function check_for_csrf() {
   #CSRF
   if($_POST["nonce"] !== md5($_SESSION["nonce"])) {
