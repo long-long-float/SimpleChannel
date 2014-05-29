@@ -6,7 +6,7 @@ session_start();
 $db = new DatabaseWrapper();
 
 if(is_loggedin()) {
-  $sql = "select id, name from users where id = ?";
+  $sql = "select id, name, point from users where id = ?";
   $current_user = $db->execute_sql($sql, array($_SESSION["user_id"]))[0];
 }
 
@@ -30,7 +30,8 @@ $threads = $db->execute_sql("select id, name from threads");
     <input type="submit" value="login">
   </form>
 <?php } else { ?>
-  <?php html($current_user["name"]."さん　こんにちは"); ?>
+  <?php html($current_user["name"]); ?>さん　こんにちは <?php html($current_user["point"]); ?>ポイント
+  <a href="/deposit.php">ポイントのチャージ</a>
   <a href="/logout.php">ログアウト</a>
   <ul>
     <?php foreach ($threads as $thread) { ?>

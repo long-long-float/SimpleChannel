@@ -1,11 +1,12 @@
 create table users(
   id integer primary key autoincrement,
   name text,
-  password text
+  password text,
+  point integer
   );
 
-insert into users (name, password) values ("user1", "test");
-insert into users (name, password) values ("user2", "test2");
+insert into users (name, password, point) values ("user1", "test", 0);
+insert into users (name, password, point) values ("user2", "test2", 0);
 
 create table threads(
   id integer primary key autoincrement,
