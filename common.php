@@ -56,4 +56,6 @@ function get_error() {
   }
 }
 
+session_save_path("./sessions");
+
 ?>
