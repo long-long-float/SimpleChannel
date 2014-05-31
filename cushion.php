@@ -5,6 +5,6 @@ $url = $_GET["url"];
 
 <?php html($url); ?> にジャンプしますがよろしいですか?
 
-<a href="<?php echo $url; ?>"><?php html($url); ?></a>
+<a href="<?php html($url); ?>"><?php html($url); ?></a>
 
 <?php require_once 'footer.php'; render_footer(); ?>
