@@ -33,7 +33,8 @@ function current_user($db) {
 function for_only($type) {
   if(!is_loggedin()) {
     set_error("ログインしてください");
-    redirect_to("/login.php");
+    $redirect = ($_SERVER["REQUEST_URI"]);
+    redirect_to("/login.php?redirect=$redirect");
     return true;
   }
   return false;

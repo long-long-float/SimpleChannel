@@ -24,30 +24,29 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
   if($user !== NULL) {
     $_SESSION["user_id"] = $user["id"];
-    redirect_to("/index.php");
+    if(isset($_POST["redirect"])) {
+      redirect_to($_POST["redirect"]);
+    } else {
+      redirect_to("/index.php");
+    }
+    return;
   } else {
     set_error("ユーザーIDまたはパスワードが違います");
-    redirect_to("/login.php");  
+    redirect_to("/login.php");
+    return;
   }
 }
 
+require_once 'header.php'; render_header("ログイン");
+
 ?>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Simple Channel</title>
-</head>
-<body>
-<div style="color:red;"><?php html(get_error()); ?></div>
-ログインしてね<br>
 <form action="/login.php" method="POST">
   <?php create_nonce(); ?>
+  <input type="hidden" name="redirect" value="<?php html($_GET["redirect"]); ?>">
   user : <input type="text" name="name"><br>
   pass : <input type="password" name="pass"><br>
   <input type="submit" value="login">
 </form>
-</body>
-</html>
+
+<?php require_once 'footer.php'; render_footer(); ?>

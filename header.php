@@ -17,9 +17,10 @@ function render_header($title) {
 </head>
 <body>
 <div style="color:red;"><?php html(get_error()); ?></div>
+<a href="/index.php">Simple Channel</a>
 <?php if(is_loggedin()) { ?>
-  <?php html($current_user["name"]); ?>さん　こんにちは <?php html($current_user["point"]); ?>ポイント
-  <a href="/deposit.php">ポイントのチャージ</a>
+  / <?php html($current_user["name"]); ?>さん こんにちは / <?php html($current_user["point"]); ?>ポイント
+  <a href="/deposit.php">ポイントのチャージ</a> /
   <a href="/logout.php">ログアウト</a>
 <?php } ?>
 <hr>
