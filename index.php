@@ -1,6 +1,8 @@
 <?php
 require_once 'header.php'; render_header("Simple Channel");
 
+for_only("users");
+
 $db = new DatabaseWrapper();
 $threads = $db->execute_sql("select id, name from threads");
 

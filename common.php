@@ -22,6 +22,23 @@ function is_loggedin() {
   return isset($_SESSION["user_id"]);
 }
 
+function current_user($db) {
+  if(is_loggedin()) {
+    $sql = "select id, name, point from users where id = ?";
+    return $db->execute_sql($sql, array($_SESSION["user_id"]))[0];
+  }
+  return null;
+}
+
+function for_only($type) {
+  if(!is_loggedin()) {
+    set_error("ログインしてください");
+    redirect_to("/login.php");
+    return true;
+  }
+  return false;
+}
+
 function redirect_to($uri) {
   header("Location: $uri");
 }
@@ -29,7 +46,7 @@ function redirect_to($uri) {
 function html($str) {
   #XSS
   echo $str;
-  #echo htmlspecialchars($str);
+  #echo htmlspecialchars($str, ENT_QUOTES, "UTF-8");
 }
 
 function create_nonce() {

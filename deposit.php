@@ -1,13 +1,13 @@
 <?php
 require_once 'header.php'; render_header("ポイントのチャージ");
 
-$method = $_SERVER["REQUEST_METHOD"];
-if($method === "POST") {
+for_only("users");
+
+if($_SERVER["REQUEST_METHOD"] === "POST") {
   if(check_for_csrf()) return;
 
   $db = new DatabaseWrapper();
-  $sql = "select id, name, point from users where id = ?";
-  $current_user = $db->execute_sql($sql, array($_SESSION["user_id"]))[0];
+  $current_user = current_user($db);
   $db->execute_sql("update users set point = ? where id = ?", array((int)$_POST["money"] + $current_user["point"], $current_user["id"]));
   
   return redirect_to("/index.php");

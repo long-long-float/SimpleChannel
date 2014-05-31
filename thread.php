@@ -2,6 +2,8 @@
 
 require_once 'header.php';
 
+for_only("users");
+
 $db = new DatabaseWrapper();
 
 $method = $_SERVER["REQUEST_METHOD"];
@@ -10,7 +12,8 @@ if($method === "POST") {
 
   $db->execute_sql("insert into threads (name) values (?)", array($_POST["name"]));
   
-  return redirect_to("/index.php");
+  redirect_to("/index.php");
+  return;
   
 } elseif ($method === "GET") {
   $id = $_GET["id"];
@@ -30,7 +33,10 @@ render_header($thread["name"]);
 
 <h1><?php html($thread["name"]); ?></h1>
 <?php foreach ($responses as $response) { ?>
-  <?php html($response["content"]); ?><hr>
+  <?php
+    $res = $response["content"];
+    html(preg_replace("/https?:\/\/[\w.]+/", "<a href='$1'>$1</a>", $res));
+  ?><hr>
 <?php } ?>
 <form action="/response.php" method="POST">
   <?php create_nonce(); ?>
