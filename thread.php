@@ -10,6 +10,12 @@ $method = $_SERVER["REQUEST_METHOD"];
 if($method === "POST") {
   if(check_for_csrf()) return;
 
+  $thread_name = $_POST["name"];
+  if(mb_strlen($thread_name, "UTF-8") > 128) {
+    set_error("スレタイが長過ぎます");
+    redirect_to("index.php");
+    return;
+  }
   $db->execute_sql("insert into threads (name) values (?)", array($_POST["name"]));
   
   redirect_to("/index.php");
