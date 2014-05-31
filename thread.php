@@ -35,7 +35,7 @@ render_header($thread["name"]);
 <?php foreach ($responses as $response) { ?>
   <?php
     $res = $response["content"];
-    html(preg_replace("/https?:\/\/[\w.]+/", "<a href='$1'>$1</a>", $res));
+    html(preg_replace("/https?:\/\/[\w.]+/", "<a href='/cushion.php?url=$0'>$0</a>", $res));
   ?><hr>
 <?php } ?>
 <form action="/response.php" method="POST">
