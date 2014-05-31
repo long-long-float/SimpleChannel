@@ -24,7 +24,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
   if($user !== NULL) {
     $_SESSION["user_id"] = $user["id"];
-    if(isset($_POST["redirect"])) {
+    #open redirector
+    if(isset($_POST["redirect"]) && preg_match("/\A\//", $_POST["redirect"])) {
       redirect_to($_POST["redirect"]);
     } else {
       redirect_to("/index.php");
