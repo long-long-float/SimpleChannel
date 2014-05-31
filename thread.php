@@ -1,12 +1,6 @@
 <?php
 
-require_once 'common.php';
-
-session_start();
-
-if(!is_loggedin()) {
-  redirect_to("/index.php");
-}
+require_once 'header.php';
 
 $db = new DatabaseWrapper();
 
@@ -30,16 +24,10 @@ if($thread === NULL) {
 }
 $responses = $db->find_by("thread_id", $id, "responses", array("id", "content"));
 
+render_header($thread["name"]);
+
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title><?php html($thread["name"]); ?></title>
-</head>
-<body>
-<a href="/index.php">Top</a>
 <h1><?php html($thread["name"]); ?></h1>
 <?php foreach ($responses as $response) { ?>
   <?php html($response["content"]); ?><hr>
@@ -50,5 +38,5 @@ $responses = $db->find_by("thread_id", $id, "responses", array("id", "content"))
   <textarea name="content"></textarea>
   <input type="submit" value="投稿">
 </form>
-</body>
-</html>
+
+<?php require_once 'footer.php'; render_footer(); ?>

@@ -23,3 +23,21 @@ if($user !== NULL) {
 redirect_to("/index.php");
 
 ?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Simple Channel</title>
+</head>
+<body>
+<div style="color:red;"><?php html(get_error()); ?></div>
+ログインしてね<br>
+<form action="/login.php" method="POST">
+  user : <input type="text" name="name"><br>
+  pass : <input type="password" name="pass"><br>
+  <input type="submit" value="login">
+</form>
+</body>
+</html>
