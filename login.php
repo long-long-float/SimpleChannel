@@ -2,8 +2,6 @@
 
 require_once 'common.php';
 
-session_start();
-
 if(is_loggedin()) {
   redirect_to("/index.php");
   return;
@@ -24,8 +22,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
   if($user !== NULL) {
     $_SESSION["user_id"] = $user["id"];
-    #open redirector
-    if(isset($_POST["redirect"]) && preg_match("/\A\//", $_POST["redirect"])) {
+    #open redirect
+    if(isset($_POST["redirect"]) && preg_match("/\A\/[^\/]/", $_POST["redirect"])) {
       redirect_to($_POST["redirect"]);
     } else {
       redirect_to("/index.php");

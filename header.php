@@ -1,8 +1,6 @@
 <?php
 require_once 'common.php';
 
-session_start();
-
 function render_header($title) {
 
   $db = new DatabaseWrapper();
